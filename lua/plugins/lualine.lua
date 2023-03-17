@@ -10,31 +10,32 @@ require("lualine").setup {
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     always_divide_middle = true,
-  },
-  winbar = {
-    lualine_a = {
-      {
-        "filename",
-        path = 1,
-        symbols = { modified = "~" },
-        color = { fg = "#749CEA", bg = "transparent" },
-      },
-    },
-    lualine_b = {
-      {
-        "aerial",
-        sep = " > ",
-        color = { fg = "#749CEA", bg = "transparent" },
-      },
-    },
+    globalstatus = true,
   },
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
       "branch",
       "diff",
+      {
+        "filename",
+        path = 1,
+        icons_enabled = true,
+        symbols = { modified = "~" },
+        color = { fg = "#749CEA", bg = "#1F2335" },
+      },
+      {
+        "filetype",
+        icon_only = true,
+        color = { bg = "#1F2335" },
+      },
     },
     lualine_c = {
+      {
+        "aerial",
+        sep = " > ",
+        color = { fg = "#749CEA", bg = "#1F2335" },
+      },
       {
         "diagnostics",
         sources = { "nvim_diagnostic" },

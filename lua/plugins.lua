@@ -125,7 +125,7 @@ return require("packer").startup(function()
   use "folke/noice.nvim"
   use "sainnhe/gruvbox-material"
   use "folke/tokyonight.nvim"
-  use "navarasu/onedark.nvim"
+  use { "catppuccin/nvim", as = "catppuccin" }
 
   --
   -- Load plugins
