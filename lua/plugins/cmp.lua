@@ -1,4 +1,3 @@
-local fn = vim.fn
 local kind_icons = {
   Text = "",
   Method = "",
@@ -27,83 +26,80 @@ local kind_icons = {
   TypeParameter = ""
 }
 
+local function border(hl_name)
+  return {
+    {'┌', hl_name},
+    {'─', hl_name},
+    {'┐', hl_name},
+    {'│', hl_name},
+    {'┘', hl_name},
+    {'─', hl_name},
+    {'└', hl_name},
+    {'│', hl_name},
+  }
+end
+
 -- local Utils = require('utils')
 local cmp = require('cmp')
 
--- local exprinoremap = Utils.exprinoremap
-
-local function get_snippets_rtp()
-  return vim.tbl_map(function(itm)
-    return fn.fnamemodify(itm, ":h")
-  end, vim.api.nvim_get_runtime_file(
-      "package.json", true
-  ))
-end
-
-local opts = {
-  paths = {
-    fn.stdpath('config')..'/snips/',
-    get_snippets_rtp()[1],
-  },
-}
-
 cmp.setup({
-  -- Don't autocomplete, otherwise there is too much clutter
-  -- completion = {autocomplete = { false },},
-
+  window = {
+    completion = cmp.config.window.bordered({
+      border = border '',
+      winhighlight = "Normal:Normal,CursorLine:PmenuSel,Search:None"
+    }),
+    documentation = {
+      border = border '',
+    }
+  },
   -- Don't preselect an option
   preselect = cmp.PreselectMode.None,
-
   formatting = {
-    fields = { "abbr","kind" },
+    fields = { "abbr", "kind", "menu" },
     format = function(_, vim_item)
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+      vim_item.abbr = ' ' .. vim_item.abbr
+      vim_item.kind = (kind_icons[vim_item.kind] or "Foo") .. " " .. vim_item.kind
+      vim_item.menu = (vim_item.menu or "") .. " "
       return vim_item
     end,
   },
   -- Mappings
   mapping = {
     -- open/close autocomplete
-    ['<C-Space>'] = function(fallback)
+        ['<C-Space>'] = function(_)
       if cmp.visible() then
         cmp.close()
       else
         cmp.complete()
       end
     end,
-
-    ['<C-c>'] = cmp.mapping.close(),
-
+        ['<C-c>'] = cmp.mapping.close(),
     -- select completion
-    ['<CR>'] = cmp.mapping.confirm({
+        ['<CR>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = false,
     }),
-
-    ['<Down>'] = function(fallback)
+        ['<Down>'] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       else
         fallback()
       end
     end,
-
-    ['<Up>'] = function(fallback)
+        ['<Up>'] = function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       else
         fallback()
       end
     end,
-
     -- Scroll documentation
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
   },
-
   -- Complete options from the LSP servers and the snippet engine
   sources = {
-    {name = 'nvim_lsp'},
-    {name = 'buffer'},
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
   },
 })

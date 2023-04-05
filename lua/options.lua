@@ -21,12 +21,3 @@ vim.api.nvim_create_autocmd("BufWritePre", { callback = function() vim.cmd("Pret
 
 vim.g.copilot_assume_mapped = true
 vim.api.nvim_set_keymap("i", "<C-j>", "copilot#Accept('<CR>')", { silent = true, expr = true })
---function map(mode, lhs, rhs, opts)
---    local options = { noremap = true }
---    if opts then
---        options = vim.tbl_extend("force", options, opts)
---    end
---    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
---end
---
---map("v", "<Space>y", "\"+y")

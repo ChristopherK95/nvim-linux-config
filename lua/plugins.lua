@@ -159,6 +159,7 @@ return require("packer").startup(function()
     },
   }
 
+  require('plugins.catppuccin')
   require "plugins.comment"
   require "plugins.lsp"
   require "plugins.treesitter"
@@ -171,6 +172,7 @@ return require("packer").startup(function()
   require "plugins.null-ls"
   require "plugins.prettier"
   require("diffview").setup {}
+  require("plugins.cmp")
 
   local builtin = require "telescope.builtin"
 end)
