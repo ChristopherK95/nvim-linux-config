@@ -17,7 +17,7 @@ vim.diagnostic.config({
 
 vim.cmd ":set guicursor=n-v-c-i:block"
 
-vim.api.nvim_create_autocmd("BufWritePre", { callback = function() vim.cmd("Prettier") vim.cmd(":w") end })
+-- vim.api.nvim_create_autocmd("BufWritePre", { callback = function() vim.cmd("Prettier") vim.cmd(":w") end })
 
 vim.g.copilot_assume_mapped = true
 vim.api.nvim_set_keymap("i", "<C-j>", "copilot#Accept('<CR>')", { silent = true, expr = true })

@@ -118,7 +118,7 @@ return require("packer").startup(function()
   use {
     "windwp/nvim-autopairs",
     config = function()
-      require("plugins.autopairs")
+      require "plugins.autopairs"
     end,
   }
   use "MunifTanjim/nui.nvim"
@@ -126,6 +126,7 @@ return require("packer").startup(function()
   use "sainnhe/gruvbox-material"
   use "folke/tokyonight.nvim"
   use { "catppuccin/nvim", as = "catppuccin" }
+  use "windwp/nvim-ts-autotag"
 
   --
   -- Load plugins
@@ -153,15 +154,27 @@ return require("packer").startup(function()
       -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
       kind_icons = {}, -- set to `false` to disable icons
     },
+    lsp = {
+      signature = { enabled = true },
+      hover = { enabled = true },
+      documentation = {
+        opts = {
+          border = { style = "single" },
+          relative = "cursor",
+          position = { row = 2 },
+        },
+      },
+    },
     presets = {
       bottom_search = true,
       command_palette = true,
     },
   }
 
-  require('plugins.catppuccin')
+  require "plugins.catppuccin"
   require "plugins.comment"
   require "plugins.lsp"
+  require "plugins.lspconfig"
   require "plugins.treesitter"
   require "plugins.lualine"
   require "plugins.telescope"
@@ -172,7 +185,9 @@ return require("packer").startup(function()
   require "plugins.null-ls"
   require "plugins.prettier"
   require("diffview").setup {}
-  require("plugins.cmp")
+  require "plugins.cmp"
+  vim.cmd "highlight! WhichKeyFloat guibg=none"
+  vim.cmd "highlight! WhichKeyBorder guibg=none"
 
   local builtin = require "telescope.builtin"
 end)

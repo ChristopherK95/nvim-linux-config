@@ -31,6 +31,15 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+nvim_lsp.lua_ls.setup {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim", "use" },
+      },
+    },
+  },
+}
 -- require('lsp.sumneko')
 
 -- signature help hover

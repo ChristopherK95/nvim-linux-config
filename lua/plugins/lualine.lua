@@ -15,31 +15,30 @@ require("lualine").setup {
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
-      "branch",
-      "diff",
       {
         "filename",
         path = 1,
         icons_enabled = true,
         symbols = { modified = "~" },
-        color = { fg = "#749CEA", bg = "#1F2335" },
+        color = { fg = "#ffffff", bg = "#22262e" },
       },
       {
-        "filetype",
-        icon_only = true,
-        color = { bg = "#1F2335" },
+        "branch",
+        color = { bg = "#2f333d", fg = "#cccccc", gui = "bold" },
+        icon = { " " },
+      },
+      {
+        "diff",
+        symbols = { added = " ", modified = " ", removed = " " },
+        color = { bg = "#2f333d" },
       },
     },
     lualine_c = {
       {
-        "aerial",
-        sep = " > ",
-        color = { fg = "#749CEA", bg = "#1F2335" },
-      },
-      {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         sections = { "error", "warn", "info" },
+        color = { bg = "#2f333d" },
       },
       {
         function()
@@ -69,12 +68,28 @@ require("lualine").setup {
 
           return msg
         end,
-        color = { fg = "#ffffff", gui = "bold" },
+        color = { fg = "#ffffff", bg = "#2f333d", gui = "bold" },
         separator = "",
       },
     },
-    lualine_x = { "filetype" },
-    lualine_y = { "progress" },
+    lualine_x = {
+      {
+        "aerial",
+        sep = " > ",
+        color = { fg = "#749CEA", bg = "#2f333d" },
+      },
+      {
+        "filetype",
+        icon = { "X", align = "right" },
+        color = { fg = "#ffffff", bg = "#22262e" },
+      },
+    },
+    lualine_y = {
+      {
+        "progress",
+        color = { bg = "#22262e" },
+      },
+    },
     lualine_z = {
       {
         function()

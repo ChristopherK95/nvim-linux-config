@@ -1,6 +1,17 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-local wk = require("which-key")
+local wk = require "which-key"
+
+wk.setup {
+  window = {
+    border = "single", -- none, single, double, shadow
+    position = "bottom", -- bottom, top
+    margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+    winblend = 0,
+  },
+}
+
 wk.register({
   space = {},
   q = { ":q<cr>", "close window" },
@@ -35,14 +46,8 @@ wk.register({
     r = { ":lua vim.lsp.buf.rename()<cr>", "rename" },
   },
   t = { ":ToggleTerm direction='float'<cr>", "terminal" },
-  d = { 
+  d = {
     name = "Diagnostic",
     d = { ":TroubleToggle<cr>", "toggle" },
   },
-}, { prefix = "<leader>", window = {
-    border = "none", -- none, single, double, shadow
-    position = "bottom", -- bottom, top
-    margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-    winblend = 0
-  }})
+}, { prefix = "<leader>" })
