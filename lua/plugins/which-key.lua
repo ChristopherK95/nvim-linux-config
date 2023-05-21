@@ -44,6 +44,7 @@ wk.register({
     name = "Code",
     a = { ":CodeActionMenu<cr>", "code actions" },
     r = { ":lua vim.lsp.buf.rename()<cr>", "rename" },
+    p = { '<cmd>lua require("copilot.panel").open()<CR>', "toggle copilot panel"}
   },
   t = { ":ToggleTerm direction='float'<cr>", "terminal" },
   d = {

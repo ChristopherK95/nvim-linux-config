@@ -40,6 +40,27 @@ nvim_lsp.lua_ls.setup {
     },
   },
 }
+
+-- local M = {}
+--
+-- function M.setup()
+--   local ts_config = require('typescript')
+--   ts_config.setup({
+--     server = {
+--       init_options = {
+--         plugins = {
+--           {
+--             name = '@styled/typescript-styled-plugin',
+--             location = '/home/chrkar/.config/yarn/global/node_modules/@styled/typescript-styled-plugin'
+--           },
+--         },
+--       }
+--     }
+--   })
+-- end
+--
+-- return M
+
 -- require('lsp.sumneko')
 
 -- signature help hover

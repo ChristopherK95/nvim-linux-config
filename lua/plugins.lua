@@ -58,7 +58,7 @@ return require("packer").startup(function()
   }
   use "nvim-tree/nvim-web-devicons"
   use {
-    "glepnir/dashboard-nvim",
+    "nvimdev/dashboard-nvim",
     event = "VimEnter",
     config = function()
       require "plugins.dashboard"
@@ -127,6 +127,9 @@ return require("packer").startup(function()
   use "folke/tokyonight.nvim"
   use { "catppuccin/nvim", as = "catppuccin" }
   use "windwp/nvim-ts-autotag"
+  use { "zbirenbaum/copilot.lua" }
+  use { "kevinhwang91/nvim-bqf", ft = "qf" }
+  use { "junegunn/fzf.vim" }
 
   --
   -- Load plugins
@@ -186,8 +189,7 @@ return require("packer").startup(function()
   require "plugins.prettier"
   require("diffview").setup {}
   require "plugins.cmp"
-  vim.cmd "highlight! WhichKeyFloat guibg=none"
-  vim.cmd "highlight! WhichKeyBorder guibg=none"
+  require "plugins.copilot"
 
   local builtin = require "telescope.builtin"
 end)

@@ -2,10 +2,12 @@ local db = require("dashboard")
 
 db.setup({
 	theme = "hyper",
+  shortcut_type = 'number',
 	config = {
 		week_header = {
 			enable = true,
 		},
+    project = { enable = false },
 		shortcut = {
 			{ desc = " Update", group = "@property", action = "PackerSync", key = "u" },
 			{

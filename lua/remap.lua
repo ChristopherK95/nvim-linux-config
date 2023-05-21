@@ -21,3 +21,9 @@ vim.api.nvim_set_keymap("n", "<C-right>", "<C-w><right>", { silent = true})
 vim.api.nvim_set_keymap("n", "<C-left>", "<C-w><left>", { silent = true})
 vim.api.nvim_set_keymap("n", "<C-up>", "<C-w><up>", { silent = true})
 vim.api.nvim_set_keymap("n", "<C-down>", "<C-w><down>", { silent = true})
+
+vim.api.nvim_set_keymap("i", "<C-j>", "<cmd>Copilot suggestion accept<cr>", { silent = true})
+vim.api.nvim_set_keymap("i", "<C-]>", "<cmd>Copilot suggestion next<cr>", { silent = true})
+vim.api.nvim_set_keymap("i", "<C-[>", "<cmd>Copilot suggestion prev<cr>", { silent = true})
+
+
