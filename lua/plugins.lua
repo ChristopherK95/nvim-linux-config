@@ -1,195 +1,218 @@
-vim.cmd [[packadd packer.nvim]]
-
-return require("packer").startup(function()
-  -- Packer can manage itself
-  use "wbthomason/packer.nvim"
-
-  -- Plugins
-  use {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v1.x",
-    requires = {
-      -- LSP Support
-      { "neovim/nvim-lspconfig" }, -- Required
-      { "williamboman/mason.nvim" }, -- Optional
-      { "williamboman/mason-lspconfig.nvim" }, -- Optional
-
-      -- Autocompletion
-      { "hrsh7th/nvim-cmp" }, -- Required
-      { "hrsh7th/cmp-nvim-lsp" }, -- Required
-      { "hrsh7th/cmp-buffer" }, -- Optional
-      { "hrsh7th/cmp-path" }, -- Optional
-      { "saadparwaiz1/cmp_luasnip" }, -- Optional
-      { "hrsh7th/cmp-nvim-lua" }, -- Optional
-
-      -- Snippets
-      { "L3MON4D3/LuaSnip" }, -- Required
-      { "rafamadriz/friendly-snippets" }, -- Optional
-    },
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
   }
-  use {
+end
+vim.opt.rtp:prepend(lazypath)
+
+local plugins = {
+  {
+    "VonHeikemen/lsp-zero.nvim",
+    branch = "v2.x",
+    lazy = true,
+    config = function()
+      -- This is where you modify the settings for lsp-zero
+      -- Note: autocompletion settings will not take effect
+
+      require("lsp-zero.settings").preset {}
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      {
+        "L3MON4D3/LuaSnip",
+        "rafamadriz/friendly-snippets",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lua",
+      },
+    },
+    config = function()
+      require "plugins.cmp"
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    cmd = "LspInfo",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "williamboman/mason-lspconfig.nvim" },
+      { "williamboman/mason.nvim" },
+    },
+    config = function()
+      require "plugins.lspconfig"
+      require "plugins.lsp"
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     run = function()
+      require("lazy").setup { { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" } }
       local ts_update = require("nvim-treesitter.install").update { with_sync = true }
       ts_update()
     end,
-  }
-  use {
+  },
+  {
     "nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
-  }
-  use {
+    dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
+    init = function()
+      require "plugins.lualine"
+    end,
+  },
+  {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.1",
-    requires = { "nvim-lua/plenary.nvim" },
-  }
-  use {
-    "nvim-telescope/telescope-file-browser.nvim",
-    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-  }
-  use {
-    "akinsho/toggleterm.nvim",
-    tag = "*",
-    config = function()
-      require("toggleterm").setup {
-        direction = "float",
-      }
+    dependencies = { "nvim-lua/plenary.nvim" },
+    init = function()
+      require "plugins.telescope"
     end,
-  }
-  use "nvim-tree/nvim-web-devicons"
-  use {
+  },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+  },
+  "nvim-tree/nvim-web-devicons",
+  {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
     config = function()
       require "plugins.dashboard"
     end,
-    requires = { "nvim-tree/nvim-web-devicons" },
-  }
-  use "lukas-reineke/indent-blankline.nvim"
-  use {
+    dependencies = { { "nvim-tree/nvim-web-devicons" } },
+  },
+  {
     "folke/which-key.nvim",
-    config = function()
+    event = "VeryLazy",
+    init = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 500
+      vim.o.timeoutlen = 300
     end,
-  }
-  use {
-    "lewis6991/gitsigns.nvim",
-  }
-  use {
-    "norcalli/nvim-colorizer.lua",
-  }
-  use {
-    "jose-elias-alvarez/null-ls.nvim",
-  }
-  use "MunifTanjim/prettier.nvim"
-  use { "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
-  use {
-    "folke/trouble.nvim",
-    requires = "nvim-tree/nvim-web-devicons",
     config = function()
-      require("trouble").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
+      require "plugins.which-key"
     end,
-  }
-  use {
+    opts = {},
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require "plugins.gitsigns"
+    end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+  },
+  "MunifTanjim/prettier.nvim",
+  { "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
+  {
     "weilbith/nvim-code-action-menu",
     cmd = "CodeActionMenu",
-  }
-  use {
+  },
+  {
     "SmiteshP/nvim-navic",
-    requires = "neovim/nvim-lspconfig",
-  }
-  use {
+    dependencies = "neovim/nvim-lspconfig",
+  },
+  {
     "stevearc/aerial.nvim",
-    config = function()
-      require("aerial").setup()
-    end,
-  }
-  use {
+    opts = {},
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+  },
+  {
     "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end,
-  }
-  use {
+    opts = {},
+    lazy = false,
+  },
+  {
     "windwp/nvim-autopairs",
-    config = function()
-      require "plugins.autopairs"
+    event = "InsertEnter",
+    opts = {},
+  },
+  "MunifTanjim/nui.nvim",
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    -- opts = {
+    --   cmdline = {
+    --     enabled = true,
+    --     view = "cmdline",
+    --     format = {
+    --       cmdline = { pattern = "^:", icon = ":", lang = "vim" },
+    --     },
+    --   },
+    -- },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    init = function()
+      require "plugins.noice"
     end,
-  }
-  use "MunifTanjim/nui.nvim"
-  use "folke/noice.nvim"
-  use "sainnhe/gruvbox-material"
-  use "folke/tokyonight.nvim"
-  use { "catppuccin/nvim", as = "catppuccin" }
-  use "windwp/nvim-ts-autotag"
-  use { "zbirenbaum/copilot.lua" }
-  use { "kevinhwang91/nvim-bqf", ft = "qf" }
-  use { "junegunn/fzf.vim" }
+  },
+  "sainnhe/gruvbox-material",
+  "folke/tokyonight.nvim",
+  {
+    "rebelot/kanagawa.nvim",
+    init = function()
+      require "plugins.kanagawa"
+    end,
+  },
+  { "catppuccin/nvim", name = "catppuccin" },
+  "windwp/nvim-ts-autotag",
+  { "kevinhwang91/nvim-bqf", ft = "qf" },
+  { "junegunn/fzf", build = "./install --bin" },
+  {
+    "nvimdev/guard.nvim",
+    config = function()
+      require "plugins.guard"
+    end,
+  },
+  {
+    "b0o/incline.nvim",
+    config = function()
+      require "plugins.incline"
+    end,
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require "plugins.autotag"
+    end,
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup {
+        -- Configuration here, or leave empty to use defaults
+      }
+    end,
+  },
+  {
+    "RaafatTurki/corn.nvim",
+    config = function()
+      require "plugins.corn"
+    end,
+  },
+}
 
-  --
-  -- Load plugins
-  --
-  local Popup = require "nui.popup"
-  Popup {
-    position = "40%",
-  }
-  require("noice").setup {
-    cmdline = {
-      enabled = true,
-      view = "cmdline_popup",
-      format = {
-        cmdline = { pattern = "^:", icon = "", lang = "vim" },
-      },
-      -- height = 1,
-      -- width = 80,
-      -- position = 'bottom',
-    },
-    popupmenu = {
-      enabled = true, -- enables the Noice popupmenu UI
-      ---@type 'nui'|'cmp'
-      backend = "nui", -- backend to use to show regular cmdline completions
-      ---@type NoicePopupmenuItemKind|false
-      -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
-      kind_icons = {}, -- set to `false` to disable icons
-    },
-    lsp = {
-      signature = { enabled = true },
-      hover = { enabled = true },
-      documentation = {
-        opts = {
-          border = { style = "single" },
-          relative = "cursor",
-          position = { row = 2 },
-        },
-      },
-    },
-    presets = {
-      bottom_search = true,
-      command_palette = true,
-    },
-  }
+local opts = {}
 
-  require "plugins.catppuccin"
-  require "plugins.comment"
-  require "plugins.lsp"
-  require "plugins.lspconfig"
-  require "plugins.treesitter"
-  require "plugins.lualine"
-  require "plugins.telescope"
-  require("telescope").load_extension "file_browser"
-  require "plugins.which-key"
-  require "plugins.gitsigns"
-  require("colorizer").setup()
-  require "plugins.null-ls"
-  require "plugins.prettier"
-  require("diffview").setup {}
-  require "plugins.cmp"
-  require "plugins.copilot"
-
-  local builtin = require "telescope.builtin"
-end)
+require("lazy").setup(plugins, opts)

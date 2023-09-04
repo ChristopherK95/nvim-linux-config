@@ -1,36 +1,40 @@
 require "aerial"
 local non_language_ft = { "fugitive", "startify" }
 
-local navic = require("nvim-navic").get_location()
-
 require("lualine").setup {
   options = {
     icons_enabled = true,
-    theme = "auto",
+    theme = "kanagawa",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     always_divide_middle = true,
     globalstatus = true,
   },
   sections = {
-    lualine_a = { "mode" },
+    lualine_a = {
+      {
+        "mode",
+        fmt = function(str)
+          return str:sub(1, 1)
+        end,
+      },
+    },
     lualine_b = {
       {
-        "filename",
-        path = 1,
-        icons_enabled = true,
-        symbols = { modified = "~" },
-        color = { fg = "#ffffff", bg = "#22262e" },
-      },
-      {
         "branch",
-        color = { bg = "#2f333d", fg = "#cccccc", gui = "bold" },
-        icon = { " " },
+        color = { bg = "none", fg = "#fc6086", gui = "bold" },
+        icon = { "" },
       },
       {
         "diff",
-        symbols = { added = " ", modified = " ", removed = " " },
-        color = { bg = "#2f333d" },
+        colored = true,
+        diff_color = {
+          added = "LuaLineDiffAdd",
+          modified = "LuaLineDiffChange",
+          removed = "LuaLineDiffDelete",
+        },
+        symbols = { added = " ", modified = " ", removed = " " },
+        color = { bg = "none" },
       },
     },
     lualine_c = {
@@ -38,7 +42,7 @@ require("lualine").setup {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         sections = { "error", "warn", "info" },
-        color = { bg = "#2f333d" },
+        color = { bg = "none" },
       },
       {
         function()
@@ -68,7 +72,7 @@ require("lualine").setup {
 
           return msg
         end,
-        color = { fg = "#ffffff", bg = "#2f333d", gui = "bold" },
+        color = { fg = "#ffffff", bg = "none", gui = "bold" },
         separator = "",
       },
     },
@@ -76,18 +80,18 @@ require("lualine").setup {
       {
         "aerial",
         sep = " > ",
-        color = { fg = "#749CEA", bg = "#2f333d" },
+        color = { fg = "#749CEA", bg = "none" },
       },
       {
         "filetype",
         icon = { "X", align = "right" },
-        color = { fg = "#ffffff", bg = "#22262e" },
+        color = { fg = "#ffffff", bg = "none" },
       },
     },
     lualine_y = {
       {
         "progress",
-        color = { bg = "#22262e" },
+        color = { bg = "none", fg = "#ffffff" },
       },
     },
     lualine_z = {

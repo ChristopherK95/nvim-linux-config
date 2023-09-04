@@ -40,16 +40,22 @@ local function border(hl_name)
 end
 
 -- local Utils = require('utils')
+require("lsp-zero.cmp").extend()
 local cmp = require "cmp"
+local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup {
+  completion = {
+    completeopt = "menu,menuone,noinsert",
+  },
   window = {
-    completion = cmp.config.window.bordered {
+    completion = {
       border = border "",
       winhighlight = "Normal:Normal,CursorLine:PmenuSel,Search:None",
     },
     documentation = {
       border = border "",
+      winhighlight = "Normal:Normal",
     },
   },
   -- Don't preselect an option
@@ -64,7 +70,7 @@ cmp.setup {
     end,
   },
   -- Mappings
-  mapping = {
+  mapping = cmp.mapping.preset.insert {
     -- open/close autocomplete
     ["<C-Space>"] = function(_)
       if cmp.visible() then
@@ -93,9 +99,8 @@ cmp.setup {
         fallback()
       end
     end,
-    -- Scroll documentation
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<S-Down>"] = cmp.mapping.scroll_docs(4),
+    ["<S-Up>"] = cmp.mapping.scroll_docs(-4),
   },
   -- Complete options from the LSP servers and the snippet engine
   sources = {
@@ -103,3 +108,5 @@ cmp.setup {
     { name = "buffer" },
   },
 }
+
+-- cmp.event:on("menu_opened", cmp.select_next_item(cmp_select_opts, 1))

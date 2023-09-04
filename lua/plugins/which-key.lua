@@ -39,16 +39,38 @@ wk.register({
     b = { ":Telescope git_branches<cr>", "branches" },
     s = { ":Telescope git_status<cr>", "status" },
     f = { ":Telescope git_bcommits<cr>", "file commits" },
+    p = { ":Gitsigns preview_hunk_inline<cr>", "Show changes" },
+    g = { ":Gitsigns blame_line<cr>", "Show git blame" },
   },
   c = {
     name = "Code",
     a = { ":CodeActionMenu<cr>", "code actions" },
     r = { ":lua vim.lsp.buf.rename()<cr>", "rename" },
-    p = { '<cmd>lua require("copilot.panel").open()<CR>', "toggle copilot panel"}
   },
   t = { ":ToggleTerm direction='float'<cr>", "terminal" },
   d = {
     name = "Diagnostic",
     d = { ":TroubleToggle<cr>", "toggle" },
+    [","] = {
+      function()
+        vim.diagnostic.goto_prev()
+      end,
+      "prev",
+    },
+    ["."] = {
+      function()
+        vim.diagnostic.goto_next()
+      end,
+      "next",
+    },
+  },
+  e = {
+    ":vsplit<cr>:e ~/buffer<cr>",
+    "open scratchpad",
+  },
+  p = {
+    name = "Folder search",
+    p = { "<cmd>call fzf#run(fzf#wrap({'source': 'find * -type d'}))<cr>", "current" },
+    o = { "<cmd>call fzf#run(fzf#wrap({'source': 'find * -type d', 'dir': '~'}))<cr>", "global" },
   },
 }, { prefix = "<leader>" })

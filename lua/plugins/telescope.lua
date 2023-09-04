@@ -1,4 +1,7 @@
-require("telescope").setup {
+local telescope = require "telescope"
+local actions = require "telescope.actions"
+telescope.load_extension "file_browser"
+telescope.setup {
   defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
@@ -9,9 +12,12 @@ require("telescope").setup {
         -- e.g. git_{create, delete, ...}_branch for the git_branches picker
         ["<C-h>"] = "which_key",
         ["<C-d>"] = "delete_buffer",
+        ["<PageDown>"] = actions.preview_scrolling_down,
+        ["<PageUp>"] = actions.preview_scrolling_up,
       },
     },
     prompt_prefix = "   ",
+    selection_caret = " ",
     file_sorter = require("telescope.sorters").get_fuzzy_file,
     path_display = { "truncate" },
     borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
