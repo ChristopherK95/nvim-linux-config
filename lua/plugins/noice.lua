@@ -5,7 +5,7 @@
 require("noice").setup {
   cmdline = {
     enabled = true,
-    view = "cmdline",
+    view = "cmdline_popup",
     format = {
       cmdline = { pattern = "^:", icon = ">_", lang = "vim" },
     },
@@ -18,12 +18,15 @@ require("noice").setup {
   popupmenu = {
     enabled = true, -- enables the Noice popupmenu UI
     ---@type 'nui'|'cmp'
-    backend = "nui", -- backend to use to show regular cmdline completions
+    backend = "cmp", -- backend to use to show regular cmdline completions
     ---@type NoicePopupmenuItemKind|false
     -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
     kind_icons = {}, -- set to `false` to disable icons
   },
   lsp = {
+    progress = {
+      enabled = false,
+    },
     hover = { enabled = true },
     documentation = {
       view = "hover",

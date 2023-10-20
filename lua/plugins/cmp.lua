@@ -42,7 +42,7 @@ end
 -- local Utils = require('utils')
 require("lsp-zero.cmp").extend()
 local cmp = require "cmp"
-local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
+-- local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup {
   completion = {
@@ -108,5 +108,16 @@ cmp.setup {
     { name = "buffer" },
   },
 }
+
+-- cmp.setup.cmdline(":", {
+--   mapping = cmp.mapping.preset.cmdline(),
+--   sources = cmp.config.sources({
+--     { name = "path" },
+--   }, {
+--     {
+--       name = "cmdline",
+--     },
+--   }),
+-- })
 
 -- cmp.event:on("menu_opened", cmp.select_next_item(cmp_select_opts, 1))

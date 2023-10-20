@@ -19,10 +19,11 @@ wk.register({
     name = "Find",
     f = { ":Telescope find_files<cr>", "find file" },
     b = { ":Telescope buffers<cr>", "buffers" },
-    g = { ":Telescope live_grep<cr>", "live grep" },
+    g = { ":lua require('telescope.builtin').live_grep({additional_args = {'-j1'}})<cr>", "live grep" },
     r = { ":Telescope lsp_references<cr>", "references" },
     h = { ":Telescope help_tags<cr>", "help" },
-    e = { ":Telescope file_browser path=%:p:h select_buffer=true<cr>", "file browser" },
+    -- e = { ":Telescope file_browser path=%:p:h select_buffer=true<cr>", "file browser" },
+    e = { ":lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", "mini files" },
     d = { ":Telescope diagnostics<cr>", "diagnostics" },
   },
   w = {
@@ -51,6 +52,7 @@ wk.register({
   d = {
     name = "Diagnostic",
     d = { ":TroubleToggle<cr>", "toggle" },
+    c = { ":CornToggle<cr>", "toggle corn" },
     [","] = {
       function()
         vim.diagnostic.goto_prev()

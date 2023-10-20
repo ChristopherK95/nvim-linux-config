@@ -72,7 +72,6 @@ local plugins = {
   },
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.1",
     dependencies = { "nvim-lua/plenary.nvim" },
     init = function()
       require "plugins.telescope"
@@ -128,14 +127,6 @@ local plugins = {
     dependencies = "neovim/nvim-lspconfig",
   },
   {
-    "stevearc/aerial.nvim",
-    opts = {},
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
-  },
-  {
     "numToStr/Comment.nvim",
     opts = {},
     lazy = false,
@@ -146,25 +137,16 @@ local plugins = {
     opts = {},
   },
   "MunifTanjim/nui.nvim",
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    -- opts = {
-    --   cmdline = {
-    --     enabled = true,
-    --     view = "cmdline",
-    --     format = {
-    --       cmdline = { pattern = "^:", icon = ":", lang = "vim" },
-    --     },
-    --   },
-    -- },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
-    init = function()
-      require "plugins.noice"
-    end,
-  },
+  -- {
+  --   "folke/noice.nvim",
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --   },
+  --   init = function()
+  --     require "plugins.noice"
+  --   end,
+  -- },
   "sainnhe/gruvbox-material",
   "folke/tokyonight.nvim",
   {
@@ -173,12 +155,14 @@ local plugins = {
       require "plugins.kanagawa"
     end,
   },
-  { "catppuccin/nvim", name = "catppuccin" },
   "windwp/nvim-ts-autotag",
   { "kevinhwang91/nvim-bqf", ft = "qf" },
   { "junegunn/fzf", build = "./install --bin" },
   {
     "nvimdev/guard.nvim",
+    dependencies = {
+      "nvimdev/guard-collection",
+    },
     config = function()
       require "plugins.guard"
     end,
@@ -211,6 +195,40 @@ local plugins = {
       require "plugins.corn"
     end,
   },
+  {
+    "j-hui/fidget.nvim",
+    tag = "legacy",
+    event = "LspAttach",
+    opts = {
+      -- options
+    },
+  },
+  { "styled-components/vim-styled-components" },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    init = function()
+      require "plugins.catppuccin"
+    end,
+  },
+  {
+    "echasnovski/mini.files",
+    version = "*",
+    config = function()
+      require "plugins.mini-files"
+    end,
+  },
+  -- {
+  --   "benwainwright/fzf-project",
+  --   dependencies = {
+  --     "junegunn/fzf.vim",
+  --     "tpope/vim-fugitive",
+  --   },
+  --   init = function()
+  --     require "plugins.fzf-project"
+  --   end,
+  -- },
 }
 
 local opts = {}

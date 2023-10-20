@@ -1,10 +1,9 @@
-require "aerial"
 local non_language_ft = { "fugitive", "startify" }
 
 require("lualine").setup {
   options = {
     icons_enabled = true,
-    theme = "kanagawa",
+    theme = "catppuccin",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     always_divide_middle = true,
@@ -22,7 +21,7 @@ require("lualine").setup {
     lualine_b = {
       {
         "branch",
-        color = { bg = "none", fg = "#fc6086", gui = "bold" },
+        -- color = { bg = "#4B465B", fg = "#fc6086", gui = "bold" },
         icon = { "" },
       },
       {
@@ -34,7 +33,7 @@ require("lualine").setup {
           removed = "LuaLineDiffDelete",
         },
         symbols = { added = " ", modified = " ", removed = " " },
-        color = { bg = "none" },
+        -- color = { bg = "#4B465B" },
       },
     },
     lualine_c = {
@@ -42,7 +41,7 @@ require("lualine").setup {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         sections = { "error", "warn", "info" },
-        color = { bg = "none" },
+        -- color = { bg = "#4B465B" },
       },
       {
         function()
@@ -72,26 +71,21 @@ require("lualine").setup {
 
           return msg
         end,
-        color = { fg = "#ffffff", bg = "none", gui = "bold" },
+        -- color = { fg = "#ffffff", bg = "#4B465B", gui = "bold" },
         separator = "",
       },
     },
     lualine_x = {
       {
-        "aerial",
-        sep = " > ",
-        color = { fg = "#749CEA", bg = "none" },
-      },
-      {
         "filetype",
         icon = { "X", align = "right" },
-        color = { fg = "#ffffff", bg = "none" },
+        -- color = { fg = "#ffffff", bg = "none" },
       },
     },
     lualine_y = {
       {
         "progress",
-        color = { bg = "none", fg = "#ffffff" },
+        -- color = { bg = "none", fg = "#ffffff" },
       },
     },
     lualine_z = {

@@ -137,7 +137,6 @@ return require("packer").startup(function()
   --
 
   require "plugins.which-key"
-  require "plugins.catppuccin"
   require "plugins.comment"
   require "plugins.treesitter"
   -- require "plugins.lualine"
@@ -153,6 +152,7 @@ return require("packer").startup(function()
   require "plugins.cmp"
   require "plugins.guard"
   require "plugins.noice"
+  require "plugins.catppuccin"
 
-  local builtin = require "telescope.builtin"
+  require "telescope.builtin"
 end)

@@ -13,17 +13,18 @@ local servers = {
   "bashls",
   "dockerls",
   "jsonls",
-  "tsserver",
   "cssls",
 }
+
+nvim_lsp.tsserver.setup {}
+nvim_lsp.eslint.setup {
+    root_dir = root_pattern(".eslintrc.js", ".eslintrc.json"),
+}
+
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     capabilities = capabilities,
     flags = lsp_flags,
-  }
-  nvim_lsp.eslint.setup {
-    capabilities = capabilities,
-    root_dir = root_pattern(".eslintrc.js", ".eslintrc.json"),
   }
 end
 

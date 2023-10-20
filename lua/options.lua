@@ -1,4 +1,4 @@
-vim.o.cmdheight = 1
+vim.o.cmdheight = 0
 vim.o.pumheight = 20
 vim.o.pumwidth = 10
 vim.o.scrolloff = 15
@@ -25,3 +25,4 @@ vim.g.indent_blankline_filetype_exclude = "dashboard"
 
 vim.cmd "command! W w"
 vim.cmd "command! Q q"
+vim.cmd "command! Qa qa"

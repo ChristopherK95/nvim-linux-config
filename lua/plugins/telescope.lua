@@ -17,7 +17,7 @@ telescope.setup {
       },
     },
     prompt_prefix = "   ",
-    selection_caret = " ",
+    selection_caret = "> ",
     file_sorter = require("telescope.sorters").get_fuzzy_file,
     path_display = { "truncate" },
     borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
@@ -50,11 +50,5 @@ telescope.setup {
       fname_width = 150,
     },
   },
-  extensions = {
-    -- Your extension configuration goes here:
-    -- extension_name = {
-    --   extension_config_key = value,
-    -- }
-    -- please take a look at the readme of the extension you want to configure
-  },
+  extensions = {},
 }
