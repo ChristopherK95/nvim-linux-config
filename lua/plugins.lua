@@ -77,10 +77,10 @@ local plugins = {
       require "plugins.telescope"
     end,
   },
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-  },
+  -- {
+  --   "nvim-telescope/telescope-file-browser.nvim",
+  --   dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+  -- },
   "nvim-tree/nvim-web-devicons",
   {
     "nvimdev/dashboard-nvim",
@@ -189,12 +189,12 @@ local plugins = {
       }
     end,
   },
-  {
-    "RaafatTurki/corn.nvim",
-    config = function()
-      require "plugins.corn"
-    end,
-  },
+  -- {
+  --   "RaafatTurki/corn.nvim",
+  --   config = function()
+  --     require "plugins.corn"
+  --   end,
+  -- },
   {
     "j-hui/fidget.nvim",
     tag = "legacy",
@@ -219,6 +219,69 @@ local plugins = {
       require "plugins.mini-files"
     end,
   },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require "plugins.colorizer"
+    end,
+  },
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    config = function()
+      require "plugins.rainbow"
+    end,
+  },
+  {
+    "zeioth/garbage-day.nvim",
+    event = "BufEnter",
+    opts = {
+      notifications = true,
+    },
+  },
+  {
+    "ibhagwan/fzf-lua",
+    -- optional for icon support
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      -- calling `setup` is optional for customization
+      require("fzf-lua").setup {}
+    end,
+  },
+  {
+    "dmmulroy/tsc.nvim",
+    config = function()
+      require("tsc").setup()
+    end,
+  },
+  {
+    "carbon-steel/detour.nvim",
+    config = function()
+      vim.keymap.set("n", "<c-w><enter>", ":Detour<cr>")
+    end,
+  },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   opts = {},
+  --   config = function()
+  --     require("typescript-tools").setup {
+  --       settings = {
+  --         tsserver_plugins = {
+  --           -- for TypeScript v4.9+
+  --           "@styled/typescript-styled-plugin",
+  --           -- or for older TypeScript versions
+  --           -- "typescript-styled-plugin",
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
+  -- {
+  --   "junegunn/rainbow_parentheses.vim",
+  --   config = function()
+  --     require "plugins.rainbow"
+  --   end,
+  -- },
   -- {
   --   "benwainwright/fzf-project",
   --   dependencies = {

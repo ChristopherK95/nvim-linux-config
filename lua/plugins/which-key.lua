@@ -17,10 +17,10 @@ wk.register({
   q = { ":q<cr>", "close window" },
   f = {
     name = "Find",
-    f = { ":Telescope find_files<cr>", "find file" },
+    f = { ":FzfLua files<cr>", "find file" },
     b = { ":Telescope buffers<cr>", "buffers" },
-    g = { ":lua require('telescope.builtin').live_grep({additional_args = {'-j1'}})<cr>", "live grep" },
-    r = { ":Telescope lsp_references<cr>", "references" },
+    g = { ":lua require('fzf-lua').live_grep({ cmd = 'rg --line-number --column --color=always' })<cr>", "live grep" },
+    r = { ":FzfLua lsp_references<cr>", "references" },
     h = { ":Telescope help_tags<cr>", "help" },
     -- e = { ":Telescope file_browser path=%:p:h select_buffer=true<cr>", "file browser" },
     e = { ":lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", "mini files" },
