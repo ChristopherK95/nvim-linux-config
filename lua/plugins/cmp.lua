@@ -62,10 +62,13 @@ cmp.setup {
   preselect = cmp.PreselectMode.None,
   formatting = {
     fields = { "kind", "abbr" },
-    format = function(_, vim_item)
+    format = function(entry, vim_item)
       vim_item.abbr = vim_item.abbr
       vim_item.kind = (kind_icons[vim_item.kind] or "Foo") .. " |"
-      vim_item.menu = (vim_item.menu or "") .. " "
+      vim_item.menu = ({
+        buffer = "[Buffer]",
+        nvim_lsp = "[LSP]",
+      })[entry.source.name]
       return vim_item
     end,
   },
@@ -105,9 +108,13 @@ cmp.setup {
   -- Complete options from the LSP servers and the snippet engine
   sources = {
     { name = "nvim_lsp" },
+    { name = "nvim_lsp_signature_help" },
     { name = "buffer" },
   },
 }
+
+local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 -- cmp.setup.cmdline(":", {
 --   mapping = cmp.mapping.preset.cmdline(),

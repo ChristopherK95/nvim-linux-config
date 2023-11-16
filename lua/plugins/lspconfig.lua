@@ -16,9 +16,12 @@ local servers = {
   "cssls",
 }
 
-nvim_lsp.tsserver.setup {}
+nvim_lsp.tsserver.setup {
+  capabilities = capabilities,
+  flags = lsp_flags,
+}
 nvim_lsp.eslint.setup {
-    root_dir = root_pattern(".eslintrc.js", ".eslintrc.json"),
+  root_dir = root_pattern(".eslintrc.js", ".eslintrc.json"),
 }
 
 for _, lsp in ipairs(servers) do
