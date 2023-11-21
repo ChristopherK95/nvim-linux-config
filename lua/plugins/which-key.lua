@@ -19,11 +19,11 @@ wk.register({
     name = "Find",
     f = { ":FzfLua files<cr>", "find file" },
     b = { ":Telescope buffers<cr>", "buffers" },
-    g = { ":lua require('fzf-lua').live_grep({ cmd = 'rg --line-number --column --color=always' })<cr>", "live grep" },
+    g = { ":FzfLua live_grep_native<cr>", "live grep" },
     r = { ":FzfLua lsp_references<cr>", "references" },
     h = { ":Telescope help_tags<cr>", "help" },
     -- e = { ":Telescope file_browser path=%:p:h select_buffer=true<cr>", "file browser" },
-    e = { ":lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", "mini files" },
+    e = { ":Oil --float<cr>", "mini files" },
     d = { ":Telescope diagnostics<cr>", "diagnostics" },
   },
   w = {
@@ -48,7 +48,7 @@ wk.register({
     a = { ":CodeActionMenu<cr>", "code actions" },
     r = { ":lua vim.lsp.buf.rename()<cr>", "rename" },
   },
-  t = { ":ToggleTerm direction='float'<cr>", "terminal" },
+  t = { ":Detour <cr>", "modal" },
   d = {
     name = "Diagnostic",
     d = { ":TroubleToggle<cr>", "toggle" },

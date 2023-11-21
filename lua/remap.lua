@@ -4,8 +4,12 @@ vim.keymap.set("n", "<Space>y", '"+y')
 vim.keymap.set("v", "<Space>y", '"+y')
 vim.keymap.set("n", "<Space>Y", '"+Y')
 
-vim.keymap.set("n", "<C-f>", function()
-  vim.cmd "GuardFmt"
+vim.keymap.set("n", "<C-f>", function(buf)
+  if vim.bo.filetype == "json" then
+    vim.lsp.buf.format()
+  else
+    vim.cmd "GuardFmt"
+  end
 end)
 
 vim.api.nvim_set_keymap("n", "<M-Right>", "<C-w>>", { silent = true })

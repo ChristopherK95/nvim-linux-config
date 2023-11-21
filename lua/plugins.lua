@@ -213,12 +213,18 @@ local plugins = {
       require "plugins.catppuccin"
     end,
   },
+  -- {
+  --   "echasnovski/mini.files",
+  --   version = "*",
+  --   config = function()
+  --     require "plugins.mini-files"
+  --   end,
+  -- },
   {
-    "echasnovski/mini.files",
-    version = "*",
-    config = function()
-      require "plugins.mini-files"
-    end,
+    "stevearc/oil.nvim",
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
     "norcalli/nvim-colorizer.lua",
@@ -245,7 +251,12 @@ local plugins = {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       -- calling `setup` is optional for customization
-      require("fzf-lua").setup {}
+      require("fzf-lua").setup {
+        grep = {
+          rg_opts = "--sort-files --hidden --column --line-number --no-heading "
+            .. "--color=always --smart-case -g '!{.git,node_modules}/*' -g '!*.svg'",
+        },
+      }
     end,
   },
   {
@@ -261,36 +272,9 @@ local plugins = {
     end,
   },
   -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  --   opts = {},
-  --   config = function()
-  --     require("typescript-tools").setup {
-  --       settings = {
-  --         tsserver_plugins = {
-  --           -- for TypeScript v4.9+
-  --           "@styled/typescript-styled-plugin",
-  --           -- or for older TypeScript versions
-  --           -- "typescript-styled-plugin",
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
-  -- {
   --   "junegunn/rainbow_parentheses.vim",
   --   config = function()
   --     require "plugins.rainbow"
-  --   end,
-  -- },
-  -- {
-  --   "benwainwright/fzf-project",
-  --   dependencies = {
-  --     "junegunn/fzf.vim",
-  --     "tpope/vim-fugitive",
-  --   },
-  --   init = function()
-  --     require "plugins.fzf-project"
   --   end,
   -- },
 }
