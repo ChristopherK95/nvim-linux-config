@@ -21,7 +21,7 @@ require("lualine").setup {
     lualine_b = {
       {
         "branch",
-        -- color = { bg = "#4B465B", fg = "#fc6086", gui = "bold" },
+        color = { bg = "#313244", gui = "bold" },
         icon = { "" },
       },
       {
@@ -33,7 +33,7 @@ require("lualine").setup {
           removed = "LuaLineDiffDelete",
         },
         symbols = { added = " ", modified = " ", removed = " " },
-        -- color = { bg = "#4B465B" },
+        color = { bg = "#313244" },
       },
     },
     lualine_c = {
@@ -79,22 +79,27 @@ require("lualine").setup {
       {
         "filetype",
         icon = { "X", align = "right" },
-        -- color = { fg = "#ffffff", bg = "none" },
+        color = { bg = "#313244" },
       },
     },
     lualine_y = {
       {
         "progress",
-        -- color = { bg = "none", fg = "#ffffff" },
+        color = { bg = "#313244" },
       },
     },
     lualine_z = {
       {
-        function()
-          return ""
+        "location",
+        fmt = function(str)
+          return str:sub(2, string.len(str) - 1)
         end,
       },
-      { "location" },
+      {
+        function()
+          return ""
+        end,
+      },
     },
   },
 }

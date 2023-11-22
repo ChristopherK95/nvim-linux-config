@@ -6,11 +6,11 @@ vim.cmd "highlight! WhichKeyFloat guibg=none"
 vim.cmd "highlight! WhichKeyBorder guibg=none"
 
 -- LuaLine
--- vim.cmd "highlight! lualine_c_normal guibg=#4B465B"
+vim.cmd "highlight! lualine_c_normal guibg=#313244"
 -- vim.cmd "highlight! lualine_b_normal guibg=#4B465B"
-vim.cmd "highlight! LuaLineDiffAdd guifg=#a7da74"
-vim.cmd "highlight! LuaLineDiffChange guifg=#fc9867"
-vim.cmd "highlight! LuaLineDiffDelete guifg=#ff6188"
+vim.cmd "highlight! LuaLineDiffAdd guibg=#313244 guifg=#a7da74"
+vim.cmd "highlight! LuaLineDiffChange guibg=#313244 guifg=#fc9867"
+vim.cmd "highlight! LuaLineDiffDelete guibg=#313244 guifg=#ff6188"
 
 vim.cmd "highlight! InclineNormal guibg=#6e6ea3 guifg=#ffffff"
 vim.cmd "highlight! InclineNormalNC guibg=#564d82 guifg=#aaaaaa"

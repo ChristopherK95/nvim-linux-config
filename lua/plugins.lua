@@ -63,6 +63,9 @@ local plugins = {
       local ts_update = require("nvim-treesitter.install").update { with_sync = true }
       ts_update()
     end,
+    config = function ()
+      require "plugins.treesitter"
+    end
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -174,12 +177,12 @@ local plugins = {
       require "plugins.incline"
     end,
   },
-  {
-    "windwp/nvim-ts-autotag",
-    config = function()
-      require "plugins.autotag"
-    end,
-  },
+  -- {
+  --   "windwp/nvim-ts-autotag",
+  --   config = function()
+  --     require "plugins.autotag"
+  --   end,
+  -- },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
