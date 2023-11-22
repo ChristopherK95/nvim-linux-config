@@ -78,6 +78,13 @@ require("lualine").setup {
     lualine_x = {
       {
         "filetype",
+        fmt = function(str)
+          local t = {
+            typescriptreact = "tsx",
+            javascriptreact = "jsx"
+          }
+          return t[str] or str
+        end,
         icon = { "X", align = "right" },
         color = { bg = "#313244" },
       },
