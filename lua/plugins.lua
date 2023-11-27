@@ -241,13 +241,13 @@ local plugins = {
       require "plugins.rainbow"
     end,
   },
-  {
-    "zeioth/garbage-day.nvim",
-    event = "BufEnter",
-    opts = {
-      notifications = true,
-    },
-  },
+  -- {
+  --   "zeioth/garbage-day.nvim",
+  --   event = "BufEnter",
+  --   opts = {
+  --     notifications = true,
+  --   },
+  -- },
   {
     "ibhagwan/fzf-lua",
     -- optional for icon support
